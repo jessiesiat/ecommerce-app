@@ -2,11 +2,11 @@
 
 namespace App\Jobs;
 
+use App\Mail\DailySalesReport;
+use App\Models\CartItem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\DailySalesReport;
-use App\Models\CartItem;
 
 class GenerateDailySalesReport implements ShouldQueue
 {
@@ -30,8 +30,8 @@ class GenerateDailySalesReport implements ShouldQueue
         $cartItemsToday = CartItem::whereHas('cart', function ($query) use ($today) {
             $query->whereDate('payment_date', $today);
         })
-        ->with('product')
-        ->get();
+            ->with('product')
+            ->get();
 
         // Group cart items by product id
         $groupedCartItems = $cartItemsToday->groupBy('product_id');

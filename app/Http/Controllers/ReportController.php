@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\CartItem;
 use App\Mail\DailySalesReport;
+use App\Models\CartItem;
 
 class ReportController extends Controller
 {
@@ -15,8 +14,8 @@ class ReportController extends Controller
         $cartItemsToday = CartItem::whereHas('cart', function ($query) use ($today) {
             $query->whereDate('payment_date', $today);
         })
-        ->with('product')
-        ->get();
+            ->with('product')
+            ->get();
 
         // Group cart items by product id
         $groupedCartItems = $cartItemsToday
@@ -24,6 +23,7 @@ class ReportController extends Controller
             ->map(function ($items) {
                 $productName = optional($items->first()->product)->name;
                 $quantitySum = $items->sum('quantity');
+
                 return [
                     'product_name' => $productName,
                     'total_quantity' => $quantitySum,

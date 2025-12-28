@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Models\Product;
 use App\Mail\LowStockNotification;
+use App\Models\Product;
 use Illuminate\Support\Facades\Mail;
 
 class ProductObserver

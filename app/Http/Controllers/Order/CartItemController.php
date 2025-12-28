@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
-use App\Models\Cart;
+use Illuminate\Http\Request;
 
 class CartItemController extends Controller
 {
@@ -14,7 +14,7 @@ class CartItemController extends Controller
     {
         $currentCart = app('currentCart');
 
-        if (!$currentCart) {
+        if (! $currentCart) {
             $currentCart = Cart::create([
                 'user_id' => auth()->id(),
                 'status' => 'pending',
@@ -40,8 +40,9 @@ class CartItemController extends Controller
         $cartItem = $cart->cartItems()->where('product_id', $validated['product_id'])->first();
         if ($cartItem) {
             $request->merge([
-                'quantity' => $cartItem->quantity + $validated['quantity']
+                'quantity' => $cartItem->quantity + $validated['quantity'],
             ]);
+
             return $this->update($request, $cartItem);
         }
 
@@ -50,7 +51,7 @@ class CartItemController extends Controller
         $validated['unit_price'] = $product->price;
         $validated['line_total'] = $product->price * $validated['quantity'];
         $validated['cart_id'] = $cart->id;
-        
+
         $cartItem = CartItem::create($validated);
 
         return back()->with('success', 'Product added to cart');

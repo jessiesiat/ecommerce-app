@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 class WithCartContext
 {
@@ -27,7 +27,7 @@ class WithCartContext
 
     protected function getCurrentCart()
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return null;
         }
 

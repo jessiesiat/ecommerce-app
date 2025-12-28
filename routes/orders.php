@@ -1,17 +1,15 @@
 <?php
 
-use Inertia\Inertia;
-use Laravel\Fortify\Features;
-use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\WithCartContext;
 use App\Http\Controllers\Order\CartController;
-use App\Http\Controllers\Order\ProductController;
 use App\Http\Controllers\Order\CartItemController;
+use App\Http\Controllers\Order\ProductController;
+use App\Http\Middleware\WithCartContext;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware([
-    'auth', 
-    'verified', 
-    WithCartContext::class
+    'auth',
+    'verified',
+    WithCartContext::class,
 ])->as('order.')->group(function () {
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');

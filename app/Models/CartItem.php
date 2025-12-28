@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Observers\CartItemObserver;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Model;
 
 #[ObservedBy([CartItemObserver::class])]
 class CartItem extends Model
