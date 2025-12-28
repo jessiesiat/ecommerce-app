@@ -16,3 +16,16 @@ export function isSameUrl(
 export function resolveUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
 }
+
+export function formatMoney(
+    amount: number,
+    currency: string = 'EUR',
+    locale: string = 'en'
+): string {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(amount);
+}

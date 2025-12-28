@@ -12,6 +12,7 @@ import { destroy, update } from "@/routes/order/cart-items";
 import CartIcon from "./cart-icon";
 import { Link } from "@inertiajs/react";
 import { checkout } from "@/routes/order/cart";
+import { formatMoney } from "@/lib/utils";
 
 export function CartItems() {
   const currentCart: any = usePage().props.currentCart;
@@ -47,7 +48,7 @@ export function CartItems() {
                 <div>
                   <div className="font-medium">{item.name}</div>
                   <div className="text-sm text-muted-foreground">
-                    {item.quantity} &times; ${item.unit_price?.toFixed(2)}
+                    {item.quantity} &times; {formatMoney(item.unit_price)}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -75,7 +76,7 @@ export function CartItems() {
           <div className="flex flex-col gap-3 border-t pt-4 px-4">
             <div className="flex justify-between text-base font-semibold">
               <span>Total</span>
-              <span>${currentCart.total_amount?.toFixed(2)}</span>
+              <span>{formatMoney(currentCart.total_amount)}</span>
             </div>
           </div>
         )}

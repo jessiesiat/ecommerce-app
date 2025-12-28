@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { router, usePage } from '@inertiajs/react';
 import { store } from '@/routes/order/cart-items';
+import { formatMoney } from '@/lib/utils';
 
 type ProductCardProps = {
     product: any;
@@ -25,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 )}
             </CardHeader>
             <CardContent className="flex flex-col flex-1 justify-between gap-4">
-                <div className="text-lg font-semibold">${product.price}</div>
+                <div className="text-lg font-semibold">{formatMoney(product.price)}</div>
                 <div className="text-sm text-muted-foreground">
                     Stock: {product.stock_quantity}
                 </div>

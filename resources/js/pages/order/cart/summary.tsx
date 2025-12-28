@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { dashboard } from '@/routes';
+import { formatMoney } from '@/lib/utils';
 
 export default function CartSummary({ cart }: any) {
     return (
@@ -24,7 +25,7 @@ export default function CartSummary({ cart }: any) {
                                     cart.cart_items.map((item: any) => (
                                         <li key={item.id} className="flex justify-between py-1 border-b last:border-b-0">
                                             <span>{item.name} x {item.quantity}</span>
-                                            <span>${item.unit_price * item.quantity}</span>
+                                            <span>{formatMoney(item.line_total)}</span>
                                         </li>
                                     ))
                                 ) : (
@@ -33,15 +34,7 @@ export default function CartSummary({ cart }: any) {
                             </ul>
                             <div className="flex justify-between font-semibold border-t pt-2">
                                 <span>Total:</span>
-                                <span>
-                                    $
-                                    {cart.cart_items
-                                        ? cart.cart_items.reduce(
-                                              (total: number, item: any) => total + item.unit_price * item.quantity,
-                                              0
-                                          ).toFixed(2)
-                                        : '0.00'}
-                                </span>
+                                <span>{formatMoney(cart.total_amount)}</span>
                             </div>
                         </div>
                         <div className="flex gap-3 mt-6">
