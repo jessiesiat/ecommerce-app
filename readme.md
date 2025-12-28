@@ -1,0 +1,6 @@
+## Setup
+
+```
+composer run setup
+```
+
